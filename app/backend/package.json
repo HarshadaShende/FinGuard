@@ -12,5 +12,8 @@
   ],
   "author": "Harshada Shende",
   "license": "ISC",
-  "description": "Backend service for FinGuard Digital Banking Platform"
+  "description": "Backend service for FinGuard Digital Banking Platform",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }

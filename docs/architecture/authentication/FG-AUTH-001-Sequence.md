@@ -1,100 +1,175 @@
-# FG-AUTH-001 - Authentication Sequence Flow
+# FG-AUTH-001 Authentication Sequence
 
-## Login Flow
+---
+
+# Login Sequence
 
 ```
-User
+Client
 
-    │
-    │ POST /auth/login
-    ▼
+│
 
-Authentication API
+▼
 
-    │
-    │ Validate Request
-    ▼
+POST /login
 
-Validation Service
+│
 
-    │
-    │ Valid
-    ▼
+▼
 
-User Repository
+Authentication Controller
 
-    │
-    │ Find User
-    ▼
+│
 
-Password Service
+▼
 
-    │
-    │ Verify Password
-    ▼
+Authentication Service
 
-JWT Service
+│
 
-    │
-    │ Generate Token
-    ▼
+▼
 
-Response
+Authentication Repository
 
-    │
-    ▼
+│
 
-User Logged In
+▼
+
+SQLite Database
+
+│
+
+▲
+
+User Found
+
+│
+
+▲
+
+Password Verified
+
+│
+
+▲
+
+Generate JWT
+
+│
+
+▲
+
+Return Token
+
+│
+
+▼
+
+Client Stores JWT
 ```
 
 ---
 
-## Logout Flow
+# Protected API Sequence
 
 ```
-User
+Client
 
-    │
-    │ POST /auth/logout
-    ▼
+│
 
-Authentication API
+▼
 
-    │
-    │ Validate Token
-    ▼
+GET /profile
 
-JWT Service
+│
 
-    │
-    │ Invalidate Session
-    ▼
+▼
+
+Authentication Middleware
+
+│
+
+▼
+
+Verify JWT
+
+│
+
+▼
+
+Attach User To Request
+
+│
+
+▼
+
+Controller
+
+│
+
+▼
+
+Response
+```
+
+---
+
+# Logout Sequence
+
+```
+Client
+
+│
+
+▼
+
+POST /logout
+
+│
+
+▼
+
+Authentication Middleware
+
+│
+
+▼
+
+JWT Verified
+
+│
+
+▼
+
+Logout Controller
+
+│
+
+▼
 
 Success Response
 ```
 
 ---
 
-## Get Current User
+# Future Authentication Flow
 
 ```
-User
+Login
 
-    │
-    │ GET /auth/me
-    ▼
+↓
 
-Authentication Middleware
+Access Token
 
-    │
-    │ Verify JWT
-    ▼
+↓
 
-User Repository
+Refresh Token
 
-    │
-    │ Fetch User
-    ▼
+↓
 
-Response
+Refresh Access Token
+
+↓
+
+Logout
 ```

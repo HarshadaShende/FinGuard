@@ -1,26 +1,74 @@
-# FG-AUTH-001 - Test Scenarios
+# FG-AUTH-001 Test Scenarios
 
-## Functional Tests
+---
 
-| TS ID  | Scenario                              |
-| ------ | ------------------------------------- |
-| TS-001 | Login with valid credentials          |
-| TS-002 | Login with invalid password           |
-| TS-003 | Login with invalid email              |
-| TS-004 | Login with empty email                |
-| TS-005 | Login with empty password             |
-| TS-006 | Login with both fields empty          |
-| TS-007 | Email should ignore case              |
-| TS-008 | Email should trim spaces              |
-| TS-009 | Password should remain case-sensitive |
-| TS-010 | Locked user cannot log in             |
-| TS-011 | Inactive user cannot log in           |
-| TS-012 | Logout with valid token               |
-| TS-013 | Logout with expired token             |
-| TS-014 | Logout without token                  |
-| TS-015 | Get current user with valid token     |
-| TS-016 | Get current user with invalid token   |
-| TS-017 | Get current user without token        |
-| TS-018 | Verify JWT expiration                 |
-| TS-019 | Verify response schema                |
-| TS-020 | Verify audit logging                  |
+# Feature
+
+Customer Authentication
+
+---
+
+# Scope
+
+The following functionality has been implemented and tested.
+
+- Login
+- JWT Generation
+- Profile Retrieval
+- Logout
+- Authorization Middleware
+- Request Validation
+
+---
+
+# Positive Test Scenarios
+
+| ID | Scenario |
+|----|----------|
+|TS01|Valid login|
+|TS02|Generate JWT|
+|TS03|Access profile with valid token|
+|TS04|Logout successfully|
+|TS05|Profile returns authenticated user|
+
+---
+
+# Negative Test Scenarios
+
+| ID | Scenario |
+|----|----------|
+|TS06|Invalid email|
+|TS07|Invalid password|
+|TS08|Missing email|
+|TS09|Missing password|
+|TS10|Missing JWT|
+|TS11|Expired JWT|
+|TS12|Malformed JWT|
+|TS13|Random token|
+|TS14|Inactive account|
+
+---
+
+# Security Test Scenarios
+
+| ID | Scenario |
+|----|----------|
+|SEC01|JWT cannot be modified|
+|SEC02|Authorization header mandatory|
+|SEC03|Password never returned|
+|SEC04|JWT secret not exposed|
+|SEC05|Only authenticated users access protected APIs|
+
+---
+
+# Regression Scope
+
+Whenever Authentication changes, execute:
+
+- Login
+- Profile
+- Logout
+- Authorization Middleware
+- JWT Validation
+
+before releasing.

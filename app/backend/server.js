@@ -1,5 +1,11 @@
 const app = require("./src/app");
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`FinGuard Backend is running on port ${PORT}`)
+const config = require("./src/config/config");
+const initializeDatabase = require("./src/database/initDatabase");
+
+// Initialize SQLite database
+initializeDatabase();
+
+// Start Express server
+app.listen(config.port, () => {
+    console.log(`🚀 FinGuard Backend is running on port ${config.port}`);
 });

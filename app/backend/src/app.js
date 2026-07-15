@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 
 const authRoutes = require("./modules/auth");
+const accountRoutes = require("./modules/accounts");
+
 const errorHandler = require("./middleware/error.middleware");
 
 const app = express();
@@ -46,6 +48,7 @@ app.get("/", (req, res) => {
 */
 
 app.use("/api/auth", authRoutes);
+app.use("/api/accounts", accountRoutes);
 
 /*
 |--------------------------------------------------------------------------

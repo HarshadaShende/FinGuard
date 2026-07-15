@@ -17,3 +17,32 @@ CREATE TABLE IF NOT EXISTS users (
 
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    user_id INTEGER NOT NULL,
+
+    account_number TEXT NOT NULL UNIQUE,
+
+    account_type TEXT NOT NULL
+    CHECK(account_type IN ('SAVINGS', 'CURRENT')),
+
+    balance REAL NOT NULL DEFAULT 0,
+
+    currency TEXT NOT NULL DEFAULT 'INR',
+
+    status TEXT NOT NULL
+    DEFAULT 'ACTIVE'
+    CHECK(status IN ('ACTIVE', 'INACTIVE', 'FROZEN', 'CLOSED')),
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_accounts_user_id
+ON accounts(user_id);

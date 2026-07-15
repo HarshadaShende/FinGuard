@@ -26,6 +26,25 @@ async function createAccount(req, res, next) {
     }
 }
 
+async function getAccounts(req, res, next) {
+    try {
+
+        const accounts = await accountService.getAccounts(
+            req.user.id
+        );
+
+        return ApiResponse.success(
+            res,
+            ACCOUNT_MESSAGES.ACCOUNT_FETCH_SUCCESS,
+            accounts
+        );
+
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
-    createAccount
+    createAccount,
+    getAccounts
 };

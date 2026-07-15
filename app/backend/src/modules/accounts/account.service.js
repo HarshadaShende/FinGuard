@@ -54,6 +54,36 @@ async function createAccount(userId, accountType) {
     };
 }
 
+async function getAccounts(userId) {
+
+    const user = await accountRepository.findUserById(userId);
+
+    if (!user) {
+        throw new ApiError(
+            404,
+            ACCOUNT_MESSAGES.USER_NOT_FOUND
+        );
+    }
+
+    if (user.status !== ACCOUNT_STATUS.ACTIVE) {
+        throw new ApiError(
+            403,
+            ACCOUNT_MESSAGES.USER_ACCOUNT_INACTIVE
+        );
+    }
+
+    const accounts = await accountRepository.getAccountsByUserId(userId);
+
+    return accounts.map(account => ({
+        id: account.id,
+        accountNumber: account.account_number,
+        accountType: account.account_type,
+        balance: account.balance,
+        currency: account.currency,
+        status: account.status
+    }));
+}
+
 function generateAccountNumber(latestAccount) {
 
     if (!latestAccount || !latestAccount.account_number) {
@@ -74,5 +104,6 @@ function generateAccountNumber(latestAccount) {
 }
 
 module.exports = {
-    createAccount
+    createAccount,
+    getAccounts
 };

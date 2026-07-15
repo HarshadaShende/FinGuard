@@ -19,6 +19,7 @@ const INITIAL_BALANCE = 0.00;
 
 const ACCOUNT_MESSAGES = {
     ACCOUNT_CREATED_SUCCESS: "Account created successfully.",
+    ACCOUNT_FETCH_SUCCESS: "Accounts retrieved successfully.",
 
     ACCOUNT_TYPE_REQUIRED: "Account type is required.",
     INVALID_ACCOUNT_TYPE: "Invalid account type.",

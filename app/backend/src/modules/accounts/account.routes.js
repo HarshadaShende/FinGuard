@@ -18,4 +18,10 @@ router.post(
     accountController.createAccount
 );
 
+router.get(
+    "/",
+    authenticate,
+    accountController.getAccounts
+);
+
 module.exports = router;

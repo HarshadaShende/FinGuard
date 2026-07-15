@@ -29,7 +29,7 @@ function getLatestAccountNumber() {
             SELECT
                 account_number
             FROM accounts
-            ORDER BY account_number DESC
+            ORDER BY id DESC
             LIMIT 1
             `,
             [],
@@ -81,8 +81,36 @@ function createAccount(account) {
     });
 }
 
+function getAccountsByUserId(userId) {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `
+            SELECT
+                id,
+                account_number,
+                account_type,
+                balance,
+                currency,
+                status
+            FROM accounts
+            WHERE user_id = ?
+            ORDER BY created_at ASC
+            `,
+            [userId],
+            (err, rows) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                resolve(rows);
+            }
+        );
+    });
+}
+
 module.exports = {
     findUserById,
     getLatestAccountNumber,
-    createAccount
+    createAccount,
+    getAccountsByUserId
 };

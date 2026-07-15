@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 
 const authRoutes = require("./modules/auth");
+const errorHandler = require("./middleware/error.middleware");
 
 const app = express();
 
@@ -45,6 +46,14 @@ app.get("/", (req, res) => {
 */
 
 app.use("/api/auth", authRoutes);
+
+/*
+|--------------------------------------------------------------------------
+| Global Error Handler
+|--------------------------------------------------------------------------
+*/
+
+app.use(errorHandler);
 
 /*
 |--------------------------------------------------------------------------

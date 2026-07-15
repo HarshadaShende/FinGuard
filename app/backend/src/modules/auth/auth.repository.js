@@ -27,6 +27,33 @@ function findUserByEmail(email) {
     });
 }
 
+function findUserById(id) {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `
+            SELECT
+                id,
+                first_name,
+                last_name,
+                email,
+                role,
+                status
+            FROM users
+            WHERE id = ?
+            `,
+            [id],
+            (err, row) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                resolve(row);
+            }
+        );
+    });
+}
+
 module.exports = {
-    findUserByEmail
+    findUserByEmail,
+    findUserById
 };
